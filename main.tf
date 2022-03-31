@@ -1,16 +1,15 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source = "hashicorp/azurerm"
-      #version = "~> 2.65"
-    }
-  }
-
-  required_version = ">= 1.1.0"
+provider "azurerm" {
+    #version = "2.5.0"
+    features {}
 }
 
-provider "azurerm" {
-  features {}
+terraform {
+  backend "azurerm"{
+    resource_group_name = "tf_rg_blobstore"
+    storage_account_name = "tfstoremariana"
+    container_name = "tfstate"
+    key = "terraform.tfstate"
+  }
 }
 
 resource "azurerm_resource_group" "tf_test" {
